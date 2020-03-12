@@ -1,8 +1,23 @@
 import React, { Component } from "react"
 import Intro from "./Intro"
 
+// Controlled component for signup page
 class SignUp extends Component {
+  state = {
+    name: "",
+    username: "",
+    password: "",
+    confirmPassword: ""
+  }
+
+  // Handle input change by passing the name of the input to change the state 
+  handleInputChange = (e, inputName) => {
+    this.setState({ [inputName]: e.target.value })
+  }
+
   render() {
+    const { name, username, password, confirmPassword } = this.state
+
     return (
       <div className="container-fluid mt-5 p-2">
         <div className="row m-auto">
@@ -18,6 +33,8 @@ class SignUp extends Component {
                   id="name"
                   className="form-control"
                   placeholder="Enter your name"
+                  value={name}
+                  onChange={(e) => this.handleInputChange(e, "name")}
                 />
               </div>
               <div className="form-row mb-3">
@@ -29,6 +46,8 @@ class SignUp extends Component {
                   id="username"
                   className="form-control"
                   placeholder="Mohamed55"
+                  value={username}
+                  onChange={(e) => this.handleInputChange(e, "username")}
                 />
               </div>
               <div className="form-row mb-3">
@@ -40,6 +59,8 @@ class SignUp extends Component {
                   id="password"
                   className="form-control"
                   placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => this.handleInputChange(e, "password")}
                 />
               </div>
               <div className="form-row mb-3">
@@ -51,6 +72,8 @@ class SignUp extends Component {
                   id="c-password"
                   className="form-control"
                   placeholder="Enter the same password as before"
+                  value={confirmPassword}
+                  onChange={(e) => this.handleInputChange(e, "confirmPassword")}
                 />
               </div>
               <div className="form-row">
