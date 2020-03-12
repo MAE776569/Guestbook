@@ -1,14 +1,25 @@
 import React, { Component } from "react"
 import Intro from "./Intro"
 
+// Controlled component for login page
 class Login extends Component {
   state = {
     username: "",
     password: ""
   }
 
+  // Handle input change by passing the name of the input to change the state
   handleInputChange = (e, inputName) => {
     this.setState({ [inputName]: e.target.value })
+  }
+
+  // Handle login form submit
+  handleSubmit = (e) => {
+    e.preventDefault()
+    //TODO: Validate input
+    //TODO: Login the user or show the error
+    // Checking the state for now
+    console.log(this.state)
   }
 
   render() {
@@ -19,7 +30,7 @@ class Login extends Component {
         <div className="row m-auto">
           <Intro />
           <div className="col-12 col-md-8 col-lg-5 m-auto">
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <div className="form-row mb-3">
                 <label htmlFor="username" className="col-form-label">
                   Username
