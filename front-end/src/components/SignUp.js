@@ -15,6 +15,15 @@ class SignUp extends Component {
     this.setState({ [inputName]: e.target.value })
   }
 
+  // Handle signup form submit
+  handleSubmit = (e) => {
+    e.preventDefault()
+    //TODO: Validate input
+    //TODO: Signup the user or show the error
+    // Checking the state for now
+    console.log(this.state)
+  }
+
   render() {
     const { name, username, password, confirmPassword } = this.state
 
@@ -23,7 +32,7 @@ class SignUp extends Component {
         <div className="row m-auto">
           <Intro />
           <div className="col-12 col-md-8 col-lg-5 m-auto">
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <div className="form-row mb-3">
                 <label htmlFor="name" className="col-form-label">
                   Name
