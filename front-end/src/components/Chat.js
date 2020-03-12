@@ -6,7 +6,7 @@ function Chat() {
   return (
     <>
       <NavBar />
-      <div className="container-fluid">
+      <div className="container-fluid py-3">
         <div className="row">
           <div className="col-8">chat</div>
           <div className="col-4">
