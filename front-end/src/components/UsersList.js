@@ -1,6 +1,7 @@
 import React from "react"
 import SearchUsers from "./SearchUsers"
 
+// Users list shows the available users
 function UsersList() {
   return (
     <ul className="list-group">
