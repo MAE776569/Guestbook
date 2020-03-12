@@ -27,7 +27,7 @@ class Login extends Component {
     const { username, password } = this.state
 
     return (
-      <div className="container-fluid mt-5 p-2">
+      <div className="container mt-5 p-2">
         <div className="row m-auto">
           <Intro />
           <div className="col-12 col-md-8 col-lg-5 m-auto">
