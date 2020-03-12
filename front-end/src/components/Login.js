@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import Intro from "./Intro"
+import { Link } from "react-router-dom"
 
 // Controlled component for login page
 class Login extends Component {
@@ -63,11 +64,11 @@ class Login extends Component {
                   value="Login"
                   className="btn d-inline-block btn-outline-primary"
                 />
-                <a
-                  href="#sign-up"
+                <Link
+                  to="/signup"
                   className="d-inline-block ml-auto align-self-center">
                   Not a member? Sign up
-                </a>
+                </Link>
               </div>
             </form>
           </div>

@@ -1,17 +1,18 @@
 import React from "react"
+import { Link } from "react-router-dom"
 
 function NavBar() {
   return (
     <nav className="navbar navbar-light bg-light">
-      <a
-        className="navbar-brand"
-        href="/">
+      <Link to="/" className="navbar-brand">
         Guestbook
-      </a>
+      </Link>
       <div>
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <a href="#" className="nav-link">Login</a>
+            <Link to="/login" className="nav-link">
+              Login
+            </Link>
           </li>
         </ul>
       </div>

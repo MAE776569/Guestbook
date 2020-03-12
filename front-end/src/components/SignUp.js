@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import Intro from "./Intro"
+import { Link } from "react-router-dom"
 
 // Controlled component for signup page
 class SignUp extends Component {
@@ -10,7 +11,7 @@ class SignUp extends Component {
     confirmPassword: ""
   }
 
-  // Handle input change by passing the name of the input to change the state 
+  // Handle input change by passing the name of the input to change the state
   handleInputChange = (e, inputName) => {
     this.setState({ [inputName]: e.target.value })
   }
@@ -91,11 +92,11 @@ class SignUp extends Component {
                   value="Sign Up"
                   className="btn d-inline-block btn-outline-primary"
                 />
-                <a
-                  href="#login"
+                <Link
+                  to="/login"
                   className="d-inline-block ml-auto align-self-center">
                   Already a member? Login
-                </a>
+                </Link>
               </div>
             </form>
           </div>
