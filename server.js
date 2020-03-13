@@ -2,6 +2,7 @@ const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
 const expressValidator = require("express-validator")
+const cookieParser = require("cookie-parser")
 const mongoose = require("mongoose")
 const router = require("./routes")
 require("dotenv").config()
@@ -18,6 +19,7 @@ db.once("open", () => {
 
 // for parsing application/json
 app.use(bodyParser.json())
+app.use(cookieParser(process.env.APP_SECRET));
 app.use(expressValidator())
 app.use(router)
 
