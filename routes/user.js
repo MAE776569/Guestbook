@@ -2,6 +2,7 @@ const router = require("express").Router()
 const authenticateUser = require("../middlewares/authentication")
 const Session = require("../models/session")
 const User = require("../models/user")
+const isAuthenticated = require("../middlewares/isAuthenticated")
 
 router.post("/login", (req, res) => {
   req.checkBody("username", "Username is required").notEmpty()
@@ -39,16 +40,30 @@ router.post("/signup", (req, res) => {
   if (errors) return res.json({ errors })
 
   const { name, username, password } = req.body
-  User.create({
-    name,
-    username,
-    password 
-  }, (error, user) => {
-    if(error) return res.json({ error })
-    Session.create({ user: user._id }, (error, session) => {
-      if (error) throw error
-      return res.json({ sessionID: session._id })
-    })
+  User.create(
+    {
+      name,
+      username,
+      password
+    },
+    (error, user) => {
+      if (error) return res.json({ error })
+      Session.create({ user: user._id }, (error, session) => {
+        if (error) throw error
+        return res.json({ sessionID: session._id })
+      })
+    }
+  )
+})
+
+router.get("/users", isAuthenticated, (req, res) => {
+  User.find({}, (error, users) => {
+    if (error) return res.json({ error: error.message })
+    return res.json({ users: users.map((user) => ({
+      id: user._id,
+      name: user.name,
+      username: user.username
+    })) })
   })
 })
 
