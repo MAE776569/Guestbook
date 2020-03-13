@@ -3,7 +3,7 @@ import React from "react"
 // Component to search for users
 function SearchUsers() {
   return (
-    <li className="form-row m-0">
+    <div className="d-flex flex-nowrap search-users">
       <div className="input-group">
         <input
           type="text"
@@ -14,7 +14,7 @@ function SearchUsers() {
           <span className="input-group-text">@</span>
         </div>
       </div>
-    </li>
+    </div>
   )
 }
 

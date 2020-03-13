@@ -1,6 +1,8 @@
 import React from "react"
 import NavBar from "./NavBar"
+import SearchUsers from "./SearchUsers"
 import UsersList from "./UsersList"
+import Messages from "./Messages"
 
 /* The main page consists of two section:
 messages to view and CRUD messages
@@ -12,9 +14,10 @@ function Chat() {
       <div className="container pt-1 chat">
         <div className="row px-3">
           <div className="col-12 col-md-6 col-lg-8 order-1 ordre-md-0 messages-section">
-            chat
+            <Messages />
           </div>
           <div className="col-12 col-md-6 col-lg-4 order-0 order-md-1 users-section">
+            <SearchUsers />
             <UsersList />
           </div>
         </div>

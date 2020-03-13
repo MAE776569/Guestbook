@@ -36,14 +36,16 @@
 .chat > .row {
   height: 100%;
 }
-.messages-section, .users-section {
+.messages-section,
+.users-section {
   height: 50%;
   overflow-y: auto;
   padding: 0;
-  border: 1px solid rgba(0,0,0,0.125);
+  border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
 }
-.search-users__input {
+.search-users__input,
+.message-form__input {
   min-height: 50px;
 }
 .list-group .list-group-item {
@@ -51,8 +53,24 @@
   border-right: none;
   border-left: none;
 }
-@media screen and (min-width: 768px){
-  .messages-section, .users-section {
+.search-users {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+.message-form {
+  position: sticky;
+  top: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+@media screen and (min-width: 768px) {
+  .messages-section,
+  .users-section {
     height: 100%;
   }
 }
