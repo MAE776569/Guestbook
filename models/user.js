@@ -21,7 +21,7 @@ const User = new mongoose.Schema(
 )
 
 // encrypting the password before saving
-User.pre("save", (next) => {
+User.pre("save", function(next) {
   if (!this.isModified("password")) {
     return next()
   }
@@ -30,7 +30,7 @@ User.pre("save", (next) => {
 })
 
 // Method for comparing passwords
-User.methods.comparePassword = (plainPassword, callback) => {
+User.methods.comparePassword = function(plainPassword, callback) {
   return callback(null, Bcrypt.compareSync(plainPassword, this.password))
 }
 
