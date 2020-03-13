@@ -1,6 +1,18 @@
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
+const mongoose = require("mongoose")
+require("dotenv").config()
+
+const DB_URL = `mongodb://localhost:${process.env.DB_PORT}/${process.env.DB_NAME}`
+mongoose.connect(DB_URL)
+const db = mongoose.connection
+db.on("error", (error) =>
+  console.error("Error connecting to the database", error)
+)
+db.once("open", () => {
+  console.log("Connected correctly to the database")
+})
 
 // for parsing application/json
 app.use(bodyParser.json())
