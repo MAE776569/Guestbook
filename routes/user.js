@@ -14,11 +14,8 @@ router.post("/login", (req, res) => {
 
   const { username, password } = req.body
   authenticateUser(username, password, (error, userID) => {
-    if (error) {
-      console.log(error)
-      return res.json({ error: error.message })}
-
-    if (userID) {
+    if (error) return res.json({ error: error.message })
+    else if (userID) {
       Session.create({ user: userID }, (error, session) => {
         if (error) throw error
         return res.json({ sessionID: session._id })

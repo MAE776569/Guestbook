@@ -1,7 +1,9 @@
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
+const expressValidator = require("express-validator")
 const mongoose = require("mongoose")
+const router = require("./routes")
 require("dotenv").config()
 
 const DB_URL = `mongodb://localhost:${process.env.DB_PORT}/${process.env.DB_NAME}`
@@ -16,6 +18,8 @@ db.once("open", () => {
 
 // for parsing application/json
 app.use(bodyParser.json())
+app.use(expressValidator())
+app.use(router)
 
 if (process.env.DEV) {
   const morgan = require("morgan")

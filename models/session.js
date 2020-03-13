@@ -8,7 +8,7 @@ const Session = new mongoose.Schema(
     },
     expiresAt: {
       type: Date,
-      default: () => {
+      default: function() {
         let week = new Date()
         week.setDate(week.getDate() + 7)
         return week
