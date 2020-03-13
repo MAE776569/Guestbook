@@ -31,7 +31,7 @@ User.pre("save", function(next) {
 
 // Method for comparing passwords
 User.methods.comparePassword = function(plainPassword, callback) {
-  return callback(null, Bcrypt.compareSync(plainPassword, this.password))
+  return callback(Bcrypt.compareSync(plainPassword, this.password))
 }
 
 module.exports = mongoose.model("User", User)
