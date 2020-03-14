@@ -12,27 +12,36 @@ messages to view and CRUD messages
 users to search and select users to their messages */
 class Chat extends Component {
   state = {
-    users: []
+    users: [],
+    searchedQuery: ""
   }
 
-  componentDidMount(){
+  componentDidMount() {
     getUsers()
       .then((res) => {
-        if (!res.error)
-          this.setState({ users: res.users })
+        if (!res.error) this.setState({ users: res.users })
       })
       .catch((error) => {
         console.log(error)
       })
   }
 
+  handleSearchUsers = (searchedQuery) => {
+    this.setState({ searchedQuery })
+  }
+
   render() {
     const { loggedUser } = this.props
     if (!loggedUser) return <Redirect to="/login" />
 
-    let { users } = this.state
-    users = users.filter((user) => user.id !== loggedUser.id)
-    
+    let { users, searchedQuery } = this.state
+    users = users.filter(
+      (user) =>
+        user.id !== loggedUser.id &&
+        (user.name.includes(searchedQuery) ||
+          user.username.includes(searchedQuery))
+    )
+
     return (
       <>
         <NavBar />
@@ -42,7 +51,7 @@ class Chat extends Component {
               <Messages />
             </div>
             <div className="col-12 col-md-6 col-lg-4 order-0 order-md-1 users-section">
-              <SearchUsers />
+              <SearchUsers queryUsers={this.handleSearchUsers} />
               <UsersList users={users} />
             </div>
           </div>

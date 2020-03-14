@@ -1,12 +1,16 @@
 import React, { useState } from "react"
 
 // Component to search for users
-function SearchUsers() {
+function SearchUsers({ queryUsers }) {
   const [searchQuery, setSearchQuery] = useState("")
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    queryUsers(searchQuery)
+  }
 
   return (
     <div className="d-flex flex-nowrap search-users">
-      <form className="w-100">
+      <form className="w-100" onSubmit={handleSubmit}>
         <div className="input-group">
           <input
             type="text"
