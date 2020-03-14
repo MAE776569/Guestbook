@@ -81,7 +81,7 @@
   margin: 0;
   font-weight: 300;
 }
-.empty-user-list {
+.empty-user-list, .empty-message-list {
   height: calc(100% - 50px);
 }
 @media screen and (min-width: 768px) {

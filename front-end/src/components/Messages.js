@@ -1,14 +1,26 @@
 import React from "react"
-import MessageForm from "./MessageForm"
 
-function Messages() {
+function Messages({ messages }) {
+  console.log(messages)
+
+  if (messages === undefined)
+    return (
+      <div className="empty-message-list d-flex justify-content-center align-items-center">
+        Select User to start conversation
+      </div>
+    )
+
+  else if (messages.length === 0)
+    return (
+      <div className="empty-message-list d-flex justify-content-center align-items-center">
+        No messages!
+      </div>
+    )
+
   return (
-    <>
-      <ul className="list-unstyled">
-        <li>Select User to start conversation</li>
-      </ul>
-      <MessageForm />
-    </>
+    <ul className="list-unstyled">
+      <li>To show messages</li>
+    </ul>
   )
 }
 
