@@ -21,7 +21,7 @@ db.once("open", () => {
 app.use(bodyParser.json())
 app.use(cookieParser(process.env.APP_SECRET));
 app.use(expressValidator())
-app.use(router)
+app.use("/api", router)
 
 if (process.env.DEV) {
   const morgan = require("morgan")

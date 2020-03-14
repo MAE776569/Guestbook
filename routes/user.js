@@ -19,10 +19,27 @@ router.post("/login", (req, res) => {
     if (error) return res.json({ error: error.message })
     else if (userID) {
       Session.create({ user: userID }, (error, session) => {
-        if (error) throw error
-        return res.json({ sessionID: session._id })
+        if (error) return res.json({ error })
+        return res.json({
+          sessionID: session._id,
+          userID: user._id,
+          name: user.name,
+          username: user.username
+        })
       })
     }
+  })
+})
+
+router.post("/logout", (req, res) => {
+  req.checkBody("sessionID", "Session Id is required").notEmpty()
+
+  const errors = req.validationErrors()
+  if (errors) return res.json({ errors })
+
+  Session.deleteOne({ _id: req.body.sessionID }, (error, session) => {
+    if (error) return res.json({ error })
+    return res.json({ success: { sessionID } })
   })
 })
 
@@ -50,7 +67,12 @@ router.post("/signup", (req, res) => {
       if (error) return res.json({ error })
       Session.create({ user: user._id }, (error, session) => {
         if (error) throw error
-        return res.json({ sessionID: session._id })
+        return res.json({
+          sessionID: session._id,
+          userID: user._id,
+          name: user.name,
+          username: user.username
+        })
       })
     }
   )
@@ -59,11 +81,13 @@ router.post("/signup", (req, res) => {
 router.get("/users", isAuthenticated, (req, res) => {
   User.find({}, (error, users) => {
     if (error) return res.json({ error: error.message })
-    return res.json({ users: users.map((user) => ({
-      id: user._id,
-      name: user.name,
-      username: user.username
-    })) })
+    return res.json({
+      users: users.map((user) => ({
+        id: user._id,
+        name: user.name,
+        username: user.username
+      }))
+    })
   })
 })
 
