@@ -15,10 +15,15 @@ class App extends Component {
     this.setState({ loggedUser })
   }
 
+  handleLogoutUser = () => {
+    this.setState({ loggedUser: null })
+  }
+
   render() {
     const storeValue = {
       ...this.state,
-      handleLoginUser: this.handleLoginUser
+      handleLoginUser: this.handleLoginUser,
+      handleLogoutUser: this.handleLogoutUser
     }
 
     const Store = getStore()
