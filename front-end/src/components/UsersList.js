@@ -1,18 +1,16 @@
 import React from "react"
+import UserItem from "./UserItem"
 
 // Users list shows the available users
-function UsersList() {
+function UsersList({ users }) {
+  if(users.length === 0)
+    return <div>No available users!</div>
+  
   return (
     <ul className="list-group">
-      <li className="list-group-item list-group-item-action">Cras justo odio</li>
-      <li className="list-group-item list-group-item-action">
-        Dapibus ac facilisis in
-      </li>
-      <li className="list-group-item list-group-item-action">Morbi leo risus</li>
-      <li className="list-group-item list-group-item-action">
-        Porta ac consectetur ac
-      </li>
-      <li className="list-group-item list-group-item-action">Vestibulum at eros</li>
+      {users.map((user) => (
+        <UserItem key={user.id} user={user} />
+      ))}
     </ul>
   )
 }
