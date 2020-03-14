@@ -29,4 +29,27 @@ router.post("/conversation", (req, res) => {
   })
 })
 
+router.get("/conversation", (req, res) => {
+  req.checkQuery("sender", "Sender is required").notEmpty()
+  req.checkQuery("receiver", "Receiver is required").notEmpty()
+
+  const error = req.validationErrors()
+  if (error) return res.json({ error })
+
+  const { sender, receiver } = req.query
+  Conversation.find({
+    $or: [
+      { sender, receiver },
+      { sender: receiver, receiver: sender }
+    ]
+  })
+    .populate("message")
+    .sort({ createdAt: -1 })
+    .limit(5)
+    .exec((error, conv) => {
+      if (error) return res.json({ error: "Error getting conversations" })
+      return res.json({ conversations: conv })
+    })
+})
+
 module.exports = router

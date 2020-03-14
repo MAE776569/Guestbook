@@ -18,4 +18,4 @@ const Conversation = mongoose.Schema({
   }
 }, { timestamps: true })
 
-module.exports = mongoose.model("conversation", Conversation)
+module.exports = mongoose.model("Conversation", Conversation)
