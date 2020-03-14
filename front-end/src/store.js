@@ -5,9 +5,9 @@ const Store = createContext({})
 export const getStore = () => Store
 
 export function connectStore(Component) {
-  return () => (
+  return (props) => (
     <Store.Consumer>
-      {value => <Component {...value} />}
+      {(value) => <Component {...props} {...value} />}
     </Store.Consumer>
   )
 }
