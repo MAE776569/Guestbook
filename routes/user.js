@@ -38,7 +38,7 @@ router.post("/logout", (req, res) => {
   if (error) return res.json({ error })
 
   Session.deleteOne({ _id: req.body.sessionID }, (error, session) => {
-    if (error) return res.json({ error })
+    if (error) return res.json({ error: "Error deleting session" })
     return res.json({ success: { sessionID } })
   })
 })
