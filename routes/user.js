@@ -11,8 +11,8 @@ router.post("/login", (req, res) => {
     .checkBody("username", "Username consists only of alpha numerics")
     .isAlphanumeric()
 
-  const errors = req.validationErrors()
-  if (errors) return res.json({ errors })
+  const error = req.validationErrors()
+  if (error) return res.json({ error })
 
   const { username, password } = req.body
   authenticateUser(username, password, (error, userID) => {
@@ -34,8 +34,8 @@ router.post("/login", (req, res) => {
 router.post("/logout", (req, res) => {
   req.checkBody("sessionID", "Session Id is required").notEmpty()
 
-  const errors = req.validationErrors()
-  if (errors) return res.json({ errors })
+  const error = req.validationErrors()
+  if (error) return res.json({ error })
 
   Session.deleteOne({ _id: req.body.sessionID }, (error, session) => {
     if (error) return res.json({ error })
@@ -53,8 +53,8 @@ router.post("/signup", (req, res) => {
     .isAlphanumeric()
   req.checkBody("c-password", "Passwords must match").equals("password")
 
-  const errors = req.validationErrors()
-  if (errors) return res.json({ errors })
+  const error = req.validationErrors()
+  if (error) return res.json({ error })
 
   const { name, username, password } = req.body
   User.create(
