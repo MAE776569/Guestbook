@@ -1,6 +1,9 @@
 import React, { Component } from "react"
 import Intro from "./Intro"
 import { Link } from "react-router-dom"
+import { connectStore } from "../store"
+import { login } from "../utils/API"
+import { withRouter } from "react-router-dom"
 
 // Controlled component for login page
 class Login extends Component {
@@ -17,10 +20,17 @@ class Login extends Component {
   // Handle login form submit
   handleSubmit = (e) => {
     e.preventDefault()
-    //TODO: Validate input
-    //TODO: Login the user or show the error
-    // Checking the state for now
-    console.log(this.state)
+    login(this.state)
+      .then((res) => {
+        if (!res.error) {
+          this.props.handleLoginUser(res)
+          this.props.history.push("/")
+        }
+        // Else show form errors
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   render() {
@@ -78,4 +88,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default withRouter(connectStore(Login))
