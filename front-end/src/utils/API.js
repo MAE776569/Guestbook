@@ -20,12 +20,11 @@ export function signup(data) {
   }).then((res) => res.json())
 }
 
-export function logout(data) {
+export function logout() {
   return fetch(`${API_URL}/logout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
+    }
   })
 }
