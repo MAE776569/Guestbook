@@ -1,12 +1,11 @@
 const API_URL = "http://localhost:8000/api"
 
-export function login(username, password) {
+export function login(data) {
   return fetch(`${API_URL}/login`, {
     method: "POST",
-    body: {
-      username,
-      password
-    }
-  })
-  .then((res) => res.json)
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  }).then((res) => res.json())
 }
