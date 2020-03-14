@@ -26,5 +26,14 @@ export function logout() {
     headers: {
       "Content-Type": "application/json"
     }
-  })
+  }).then((res) => res.json())
+}
+
+export function getLoggedUser() {
+  return fetch(`${API_URL}/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).then((res) => res.json())
 }
