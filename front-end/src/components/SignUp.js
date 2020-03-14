@@ -1,6 +1,9 @@
 import React, { Component } from "react"
 import Intro from "./Intro"
 import { Link } from "react-router-dom"
+import { connectStore } from "../store"
+import { withRouter } from "react-router-dom"
+import { signup } from "../utils/API"
 
 // Controlled component for signup page
 class SignUp extends Component {
@@ -19,10 +22,17 @@ class SignUp extends Component {
   // Handle signup form submit
   handleSubmit = (e) => {
     e.preventDefault()
-    //TODO: Validate input
-    //TODO: Signup the user or show the error
-    // Checking the state for now
-    console.log(this.state)
+    signup(this.state)
+      .then((res) => {
+        if (!res.error) {
+          this.props.handleLoginUser(res)
+          this.props.history.push("/")
+        }
+        // Else show form errors
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   render() {
@@ -106,4 +116,4 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp
+export default withRouter(connectStore(SignUp))
