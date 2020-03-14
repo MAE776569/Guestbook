@@ -18,7 +18,7 @@ router.post("/login", (req, res) => {
   authenticateUser(username, password, (error, user) => {
     if (error) return res.json({ error: error.message })
     else if (user) {
-      Session.create({ user: user }, (error, session) => {
+      Session.create({ user: user._id }, (error, session) => {
         if (error) return res.json({ error })
         return res.cookie("SID", session._id, { signed: true }).json({
           id: user._id,
