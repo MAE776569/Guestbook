@@ -15,12 +15,12 @@ router.post("/login", (req, res) => {
   if (error) return res.json({ error })
 
   const { username, password } = req.body
-  authenticateUser(username, password, (error, userID) => {
+  authenticateUser(username, password, (error, user) => {
     if (error) return res.json({ error: error.message })
-    else if (userID) {
-      Session.create({ user: userID }, (error, session) => {
+    else if (user) {
+      Session.create({ user: user }, (error, session) => {
         if (error) return res.json({ error })
-        return res.json({
+        return res.cookie("SID", session._id, { signed: true }).json({
           sessionID: session._id,
           userID: user._id,
           name: user.name,
@@ -64,10 +64,10 @@ router.post("/signup", (req, res) => {
       password
     },
     (error, user) => {
-      if (error) return res.json({ error })
+      if (error) return res.json({ error: "Error creating new user" })
       Session.create({ user: user._id }, (error, session) => {
-        if (error) throw error
-        return res.json({
+        if (error) res.json({ error: "Error creating new session" })
+        return res.cookie("SID", session._id, { signed: true }).json({
           sessionID: session._id,
           userID: user._id,
           name: user.name,
@@ -80,7 +80,7 @@ router.post("/signup", (req, res) => {
 
 router.get("/users", isAuthenticated, (req, res) => {
   User.find({}, (error, users) => {
-    if (error) return res.json({ error: error.message })
+    if (error) return res.json({ error: "Error fetching users" })
     return res.json({
       users: users.map((user) => ({
         id: user._id,
