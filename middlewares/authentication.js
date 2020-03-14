@@ -6,7 +6,7 @@ function authenticateUser(username, password, callback) {
     else if (user) {
       user.comparePassword(password, (result) =>
         result
-          ? callback(null, user._id)
+          ? callback(null, user)
           : callback(new Error("Incorrect username or password"), null)
       )
     } else callback(new Error("Incorrect username or password"), null)
