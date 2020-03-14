@@ -9,3 +9,13 @@ export function login(data) {
     body: JSON.stringify(data)
   }).then((res) => res.json())
 }
+
+export function signup(data) {
+  return fetch(`${API_URL}/signup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  }).then((res) => res.json())
+}
