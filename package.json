@@ -22,7 +22,8 @@
   },
   "scripts": {
     "start": "node server.js",
-    "database": "mongod --dbpath=./data"
+    "database": "mongod --dbpath=./data",
+    "build": "cd front-end && npm run build"
   },
   "keywords": [],
   "author": "",

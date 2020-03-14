@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express()
+const path = require("path")
 const bodyParser = require("body-parser")
 const expressValidator = require("express-validator")
 const cookieParser = require("cookie-parser")
@@ -21,7 +22,11 @@ db.once("open", () => {
 app.use(bodyParser.json())
 app.use(cookieParser(process.env.APP_SECRET));
 app.use(expressValidator())
+app.use('/static', express.static(path.join(__dirname, 'front-end/build/static')))
 app.use("/api", router)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, 'front-end/build/index.html'))
+})
 
 if (process.env.DEV) {
   const morgan = require("morgan")
