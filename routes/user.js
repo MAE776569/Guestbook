@@ -21,8 +21,7 @@ router.post("/login", (req, res) => {
       Session.create({ user: user }, (error, session) => {
         if (error) return res.json({ error })
         return res.cookie("SID", session._id, { signed: true }).json({
-          sessionID: session._id,
-          userID: user._id,
+          id: user._id,
           name: user.name,
           username: user.username
         })
@@ -64,8 +63,7 @@ router.post("/signup", (req, res) => {
       Session.create({ user: user._id }, (error, session) => {
         if (error) res.json({ error: "Error creating new session" })
         return res.cookie("SID", session._id, { signed: true }).json({
-          sessionID: session._id,
-          userID: user._id,
+          id: user._id,
           name: user.name,
           username: user.username
         })
@@ -82,7 +80,7 @@ router.get("/me", (req, res) => {
       if(error) return res.json({ error: "Error getting session" })
 
       return res.json({
-        sessionID: session._id,
+        id: session.user._id,
         name: session.user.name,
         username: session.user.username
       })
