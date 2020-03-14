@@ -74,6 +74,24 @@ router.post("/signup", (req, res) => {
   )
 })
 
+router.get("/me", (req, res) => {
+  const sessionID = req.signedCookies["SID"]
+  if (sessionID) {
+    Session.findById(sessionID).populate("user")
+    .exec((error, session) => {
+      if(error) return res.json({ error: "Error getting session" })
+
+      return res.json({
+        sessionID: session._id,
+        name: session.user.name,
+        username: session.user.username
+      })
+    })
+  }
+  else
+    return res.status(401).json({ error: "Not autheticated" })
+})
+
 router.get("/users", isAuthenticated, (req, res) => {
   User.find({}, (error, users) => {
     if (error) return res.json({ error: "Error fetching users" })
