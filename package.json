@@ -21,7 +21,8 @@
     "morgan": "^1.9.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "database": "mongod --dbpath=./data"
   },
   "keywords": [],
   "author": "",
