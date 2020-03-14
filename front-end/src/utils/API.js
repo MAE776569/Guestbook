@@ -37,3 +37,12 @@ export function getLoggedUser() {
     }
   }).then((res) => res.json())
 }
+
+export function getUsers() {
+  return fetch(`${API_URL}/users`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).then((res) => res.json())
+}
