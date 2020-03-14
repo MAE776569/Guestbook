@@ -70,4 +70,19 @@ router.put("/messages/:id", (req, res) => {
   )
 })
 
+router.delete("/messages/:id", (req, res) => {
+  req.checkParams("id", "Message id is required").notEmpty()
+
+  const error = req.validationErrors()
+  if (error) return res.json({ error })
+
+  Message.findByIdAndDelete(
+    req.params.id,
+    (error, message) => {
+      if (error) return res.json({ error: "Error deleting message" })
+      return res.json({ message })
+    }
+  )
+})
+
 module.exports = router
