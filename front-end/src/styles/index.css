@@ -46,7 +46,7 @@
 }
 .search-users__input,
 .message-form__input {
-  min-height: 50px;
+  height: 50px;
 }
 .list-group .list-group-item {
   border-top: none;
@@ -59,6 +59,7 @@
   left: 0;
   right: 0;
   z-index: 1000;
+  max-height: 50px;
 }
 .message-form {
   position: sticky;
@@ -67,6 +68,10 @@
   left: 0;
   right: 0;
   z-index: 1000;
+  max-height: 50px;
+}
+.user-item {
+  cursor: pointer;
 }
 .user-item__name {
   margin: 0;
@@ -75,6 +80,9 @@
 .user-item__username {
   margin: 0;
   font-weight: 300;
+}
+.empty-user-list {
+  height: calc(100% - 50px);
 }
 @media screen and (min-width: 768px) {
   .messages-section,
