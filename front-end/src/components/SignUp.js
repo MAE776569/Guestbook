@@ -22,7 +22,10 @@ class SignUp extends Component {
   // Handle signup form submit
   handleSubmit = (e) => {
     e.preventDefault()
-    signup(this.state)
+    const { name, username, password, confirmPassword } = this.state
+    signup({
+      name, username, password, "c-password": confirmPassword
+    })
       .then((res) => {
         if (!res.error) {
           this.props.handleLoginUser(res)
