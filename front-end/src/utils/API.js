@@ -46,3 +46,12 @@ export function getUsers() {
     }
   }).then((res) => res.json())
 }
+
+export function getConversation(sender, receiver) {
+  return fetch(`${API_URL}/conversation?sender=${sender}&receiver=${receiver}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).then((res) => res.json())
+}
