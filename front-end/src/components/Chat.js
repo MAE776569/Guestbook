@@ -3,9 +3,10 @@ import NavBar from "./NavBar"
 import SearchUsers from "./SearchUsers"
 import UsersList from "./UsersList"
 import Messages from "./Messages"
+import MessageForm from "./MessageForm"
 import { connectStore } from "../store"
 import { withRouter, Redirect } from "react-router-dom"
-import { getUsers } from "../utils/API"
+import { getUsers, getConversation } from "../utils/API"
 
 /* The main page consists of two section:
 messages to view and CRUD messages
@@ -14,7 +15,8 @@ class Chat extends Component {
   state = {
     users: [],
     searchedQuery: "",
-    activeUserID: ""
+    activeUserID: "",
+    conversations: {}
   }
 
   componentDidMount() {
@@ -32,7 +34,29 @@ class Chat extends Component {
   }
 
   handleSetActiveUser = (userID) => {
+    const { loggedUser } = this.props
+    const { conversations } = this.state
+
     this.setState({ activeUserID: userID })
+
+    if (!conversations[userID]) {
+      getConversation(loggedUser.id, userID)
+        .then((res) => {
+          if (!res.error) {
+            this.setState((prevState) => {
+              return {
+                conversations: {
+                  ...prevState.conversations,
+                  [userID]: res.conversations
+                }
+              }
+            })
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   }
 
   render() {
@@ -40,7 +64,7 @@ class Chat extends Component {
     if (!loggedUser) return <Redirect to="/login" />
 
     let { users } = this.state
-    const { searchedQuery, activeUserID } = this.state
+    const { searchedQuery, activeUserID, conversations } = this.state
     users = users.filter(
       (user) =>
         user.id !== loggedUser.id &&
@@ -54,7 +78,8 @@ class Chat extends Component {
         <div className="container pt-1 chat">
           <div className="row px-3">
             <div className="col-12 col-md-6 col-lg-8 order-1 ordre-md-0 messages-section">
-              <Messages />
+              <Messages messages={conversations[activeUserID]} />
+              <MessageForm />
             </div>
             <div className="col-12 col-md-6 col-lg-4 order-0 order-md-1 users-section">
               <SearchUsers queryUsers={this.handleSearchUsers} />
