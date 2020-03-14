@@ -13,7 +13,8 @@ users to search and select users to their messages */
 class Chat extends Component {
   state = {
     users: [],
-    searchedQuery: ""
+    searchedQuery: "",
+    activeUserID: ""
   }
 
   componentDidMount() {
@@ -30,11 +31,16 @@ class Chat extends Component {
     this.setState({ searchedQuery })
   }
 
+  handleSetActiveUser = (userID) => {
+    this.setState({ activeUserID: userID })
+  }
+
   render() {
     const { loggedUser } = this.props
     if (!loggedUser) return <Redirect to="/login" />
 
-    let { users, searchedQuery } = this.state
+    let { users } = this.state
+    const { searchedQuery, activeUserID } = this.state
     users = users.filter(
       (user) =>
         user.id !== loggedUser.id &&
@@ -52,7 +58,11 @@ class Chat extends Component {
             </div>
             <div className="col-12 col-md-6 col-lg-4 order-0 order-md-1 users-section">
               <SearchUsers queryUsers={this.handleSearchUsers} />
-              <UsersList users={users} />
+              <UsersList
+                users={users}
+                activeUserID={activeUserID}
+                setActiveUser={this.handleSetActiveUser}
+              />
             </div>
           </div>
         </div>
