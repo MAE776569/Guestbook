@@ -1,21 +1,41 @@
-import React from "react"
+import React, { Component } from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 import Chat from "./Chat"
 import Login from "./Login"
 import SignUp from "./SignUp"
 import PageNotFound from "./PageNotFound"
+import { getStore } from "../store"
 
-function App() {
-  return (
-  <BrowserRouter>
-    <Switch>
-      <Route exact path="/" component={Chat} />
-      <Route path="/login" component={Login} />
-      <Route path="/Signup" component={SignUp} />
-      <Route component={PageNotFound} />
-    </Switch>
-  </BrowserRouter>
-  )
+class App extends Component {
+  state = {
+    loggedUser: null
+  }
+
+  handleLoginUser = (loggedUser) => {
+    this.setState({ loggedUser })
+  }
+
+  render() {
+    const storeValue = {
+      ...this.state,
+      handleLoginUser: this.handleLoginUser
+    }
+
+    const Store = getStore()
+
+    return (
+      <Store.Provider value={storeValue}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Chat} />
+            <Route path="/login" component={Login} />
+            <Route path="/Signup" component={SignUp} />
+            <Route component={PageNotFound} />
+          </Switch>
+        </BrowserRouter>
+      </Store.Provider>
+    )
+  }
 }
 
 export default App
