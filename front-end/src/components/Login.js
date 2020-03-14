@@ -3,7 +3,7 @@ import Intro from "./Intro"
 import { Link } from "react-router-dom"
 import { connectStore } from "../store"
 import { login } from "../utils/API"
-import { withRouter } from "react-router-dom"
+import { withRouter, Redirect } from "react-router-dom"
 
 // Controlled component for login page
 class Login extends Component {
@@ -34,6 +34,8 @@ class Login extends Component {
   }
 
   render() {
+    if (this.props.loggedUser) return <Redirect to="/" />
+
     const { username, password } = this.state
 
     return (

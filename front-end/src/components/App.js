@@ -25,7 +25,7 @@ class App extends Component {
         .catch((error) => {
           console.log(error)
         })
-    }
+    } else this.setState({ loading: false })
   }
 
   handleLoginUser = (loggedUser) => {
@@ -37,7 +37,8 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.loading) return <h1>Loading...</h1>
+    const { loading } = this.state
+    if (loading) return <h1>Loading...</h1>
 
     const storeValue = {
       ...this.state,

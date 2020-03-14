@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import Intro from "./Intro"
 import { Link } from "react-router-dom"
 import { connectStore } from "../store"
-import { withRouter } from "react-router-dom"
+import { withRouter, Redirect } from "react-router-dom"
 import { signup } from "../utils/API"
 
 // Controlled component for signup page
@@ -24,7 +24,10 @@ class SignUp extends Component {
     e.preventDefault()
     const { name, username, password, confirmPassword } = this.state
     signup({
-      name, username, password, "c-password": confirmPassword
+      name,
+      username,
+      password,
+      "c-password": confirmPassword
     })
       .then((res) => {
         if (!res.error) {
@@ -39,6 +42,8 @@ class SignUp extends Component {
   }
 
   render() {
+    if (this.props.loggedUser) return <Redirect to="/" />
+
     const { name, username, password, confirmPassword } = this.state
 
     return (

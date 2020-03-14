@@ -3,11 +3,15 @@ import NavBar from "./NavBar"
 import SearchUsers from "./SearchUsers"
 import UsersList from "./UsersList"
 import Messages from "./Messages"
+import { connectStore } from "../store"
+import { withRouter, Redirect } from "react-router-dom"
 
 /* The main page consists of two section:
 messages to view and CRUD messages
 users to search and select users to their messages */
-function Chat() {
+function Chat(props) {
+  if (!props.loggedUser) return <Redirect to="/login" />
+
   return (
     <>
       <NavBar />
@@ -26,4 +30,4 @@ function Chat() {
   )
 }
 
-export default Chat
+export default withRouter(connectStore(Chat))
