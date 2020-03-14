@@ -31,15 +31,11 @@ router.post("/login", (req, res) => {
   })
 })
 
-router.post("/logout", (req, res) => {
-  req.checkBody("sessionID", "Session Id is required").notEmpty()
-
-  const error = req.validationErrors()
-  if (error) return res.json({ error })
-
-  Session.deleteOne({ _id: req.body.sessionID }, (error, session) => {
+router.post("/logout", isAuthenticated, (req, res) => {
+  const sessionID = req.signedCookies["SID"]
+  Session.deleteOne({ _id: sessionID }, (error, session) => {
     if (error) return res.json({ error: "Error deleting session" })
-    return res.json({ success: { sessionID } })
+    return res.clearCookie("SID").json({ success: { sessionID } })
   })
 })
 
