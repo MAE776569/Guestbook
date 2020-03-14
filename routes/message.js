@@ -52,4 +52,22 @@ router.get("/conversation", (req, res) => {
     })
 })
 
+router.put("/messages/:id", (req, res) => {
+  req.checkParams("id", "Message id is required").notEmpty()
+  req.checkBody("text", "Message text is required").notEmpty()
+
+  const error = req.validationErrors()
+  if (error) return res.json({ error })
+
+  Message.findByIdAndUpdate(
+    { _id: req.params.id },
+    { text: req.body.text },
+    { new: true },
+    (error, message) => {
+      if (error) return res.json({ error: "Error updating message" })
+      return res.json({ message })
+    }
+  )
+})
+
 module.exports = router
