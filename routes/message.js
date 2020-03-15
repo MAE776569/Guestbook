@@ -3,7 +3,7 @@ const isAuthenticated = require("../middlewares/isAuthenticated")
 const Message = require("../models/message")
 const Conversation = require("../models/conversation")
 
-router.post("/conversation", (req, res) => {
+router.post("/conversation", isAuthenticated, (req, res) => {
   req.checkBody("sender", "Sender id is required").notEmpty()
   req.checkBody("receiver", "Receiver id is required").notEmpty()
   req.checkBody("text", "Conversation text is required").notEmpty()
@@ -29,7 +29,7 @@ router.post("/conversation", (req, res) => {
   })
 })
 
-router.get("/conversation", (req, res) => {
+router.get("/conversation", isAuthenticated, (req, res) => {
   req.checkQuery("sender", "Sender is required").notEmpty()
   req.checkQuery("receiver", "Receiver is required").notEmpty()
 
@@ -45,14 +45,14 @@ router.get("/conversation", (req, res) => {
   })
     .populate("message")
     .sort({ createdAt: -1 })
-    .limit(5)
+    .limit(10)
     .exec((error, conv) => {
       if (error) return res.json({ error: "Error getting conversations" })
       return res.json({ conversations: conv })
     })
 })
 
-router.put("/messages/:id", (req, res) => {
+router.put("/messages/:id", isAuthenticated, (req, res) => {
   req.checkParams("id", "Message id is required").notEmpty()
   req.checkBody("text", "Message text is required").notEmpty()
 
@@ -70,19 +70,16 @@ router.put("/messages/:id", (req, res) => {
   )
 })
 
-router.delete("/messages/:id", (req, res) => {
+router.delete("/messages/:id", isAuthenticated, (req, res) => {
   req.checkParams("id", "Message id is required").notEmpty()
 
   const error = req.validationErrors()
   if (error) return res.json({ error })
 
-  Message.findByIdAndDelete(
-    req.params.id,
-    (error, message) => {
-      if (error) return res.json({ error: "Error deleting message" })
-      return res.json({ message })
-    }
-  )
+  Message.findByIdAndDelete(req.params.id, (error, message) => {
+    if (error) return res.json({ error: "Error deleting message" })
+    return res.json({ message })
+  })
 })
 
 module.exports = router
