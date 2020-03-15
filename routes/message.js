@@ -44,7 +44,7 @@ router.get("/conversation", isAuthenticated, (req, res) => {
     ]
   })
     .populate("message")
-    .sort({ createdAt: -1 })
+    .sort({ createdAt: 1 })
     .limit(10)
     .exec((error, conv) => {
       if (error) return res.json({ error: "Error getting conversations" })

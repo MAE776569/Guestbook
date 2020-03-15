@@ -31,7 +31,7 @@
   padding: 0;
 }
 .chat {
-  height: 88vh;
+  height: 85vh;
 }
 .chat > .row {
   height: 100%;
@@ -52,7 +52,10 @@
   resize: none;
   overflow: hidden;
   border-color: #cecece;
-  padding: 0;
+  padding: 0.35rem 0.25rem;
+  border-top-left-radius: 2%;
+  border-bottom-left-radius: 2%;
+  border: 0 solid transparent;
 }
 .list-group .list-group-item {
   border-top: none;
@@ -84,7 +87,7 @@
   height: calc(100% - 50px);
 }
 .message-item {
-  width: 35%;
+  width: 75%;
   border-radius: 5px;
   box-shadow: 2px 2px 2px 2px #eee;
 }
@@ -94,7 +97,7 @@
   color: #5d5d5d;
 }
 .message-item__text {
-  font-size: .95rem;
+  font-size: 0.95rem;
   font-weight: 400;
 }
 .message-item__button {
@@ -108,5 +111,8 @@
   .messages-section,
   .users-section {
     height: 100%;
+  }
+  .message-item {
+    width: 35%;
   }
 }

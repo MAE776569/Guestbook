@@ -52,7 +52,7 @@ class SignUp extends Component {
           <Intro />
           <div className="col-12 col-md-8 col-lg-5 m-auto">
             <form onSubmit={this.handleSubmit}>
-              <div className="form-row mb-3">
+              <div className="form-row mb-2">
                 <label htmlFor="name" className="col-form-label">
                   Name
                 </label>
@@ -65,7 +65,7 @@ class SignUp extends Component {
                   onChange={(e) => this.handleInputChange(e, "name")}
                 />
               </div>
-              <div className="form-row mb-3">
+              <div className="form-row mb-2">
                 <label htmlFor="username" className="col-form-label">
                   Username
                 </label>
@@ -78,7 +78,7 @@ class SignUp extends Component {
                   onChange={(e) => this.handleInputChange(e, "username")}
                 />
               </div>
-              <div className="form-row mb-3">
+              <div className="form-row mb-2">
                 <label htmlFor="password" className="col-form-label">
                   Password
                 </label>
@@ -91,7 +91,7 @@ class SignUp extends Component {
                   onChange={(e) => this.handleInputChange(e, "password")}
                 />
               </div>
-              <div className="form-row mb-3">
+              <div className="form-row mb-2">
                 <label htmlFor="c-password" className="col-form-label">
                   Confirm Password
                 </label>

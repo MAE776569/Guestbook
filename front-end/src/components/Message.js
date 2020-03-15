@@ -14,7 +14,11 @@ function Message({
     )
 
   return (
-    <li className="message-item px-3 py-1 mb-4">
+    <li
+      className={
+        "message-item px-3 py-1 mb-4 " +
+        (loggedUserID === conversation.sender ? "mr-auto" : "ml-auto")
+      }>
       <div className="message-item__date">{conversation.createdAt}</div>
       <div className="message-item__text py-2">{conversation.message.text}</div>
       {loggedUserID === conversation.sender && (
@@ -30,7 +34,9 @@ function Message({
           <button
             type="button"
             className="message-item__button text-info"
-            onClick={() => setUpdatedMessage(conversation.message, conversation._id)}>
+            onClick={() =>
+              setUpdatedMessage(conversation.message, conversation._id)
+            }>
             Update
           </button>
         </div>
