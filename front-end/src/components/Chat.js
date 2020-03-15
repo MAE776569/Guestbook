@@ -104,10 +104,13 @@ class Chat extends Component {
         <div className="container pt-1 chat">
           <div className="row px-3">
             <div className="col-12 col-md-6 col-lg-8 order-1 ordre-md-0 messages-section">
-              <Messages messages={conversations[activeUserID]} />
               {activeUserID && (
                 <MessageForm sendMessage={this.handleSendMessage} />
               )}
+              <Messages
+                messages={conversations[activeUserID]}
+                loggedUserID={loggedUser.id}
+              />
             </div>
             <div className="col-12 col-md-6 col-lg-4 order-0 order-md-1 users-section">
               <SearchUsers queryUsers={this.handleSearchUsers} />

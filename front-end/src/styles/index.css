@@ -59,18 +59,10 @@
   border-right: none;
   border-left: none;
 }
-.search-users {
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  max-height: 50px;
-}
+.search-users,
 .message-form {
   position: sticky;
-  top: 100%;
-  bottom: 0;
+  top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
@@ -91,9 +83,6 @@
 .empty-message-list {
   height: calc(100% - 50px);
 }
-.unselected-message-list {
-  height: 100%;
-}
 .message-item {
   width: 35%;
   border-radius: 5px;
@@ -105,8 +94,8 @@
   color: #5d5d5d;
 }
 .message-item__text {
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: .95rem;
+  font-weight: 400;
 }
 .message-item__button {
   font-size: 0.8rem;

@@ -1,10 +1,10 @@
 import React from "react"
 import Message from "./Message"
 
-function Messages({ messages }) {
+function Messages({ messages, loggedUserID }) {
   if (messages === undefined)
     return (
-      <div className="unselected-message-list d-flex justify-content-center align-items-center">
+      <div className="empty-message-list d-flex justify-content-center align-items-center">
         Select User to start conversation
       </div>
     )
@@ -18,7 +18,13 @@ function Messages({ messages }) {
 
   return (
     <ul className="list-unstyled px-3 pt-2">
-      <Message />
+      {messages.map((message) => (
+        <Message
+          key={message.id}
+          conversation={message}
+          loggedUserID={loggedUserID}
+        />
+      ))}
     </ul>
   )
 }
