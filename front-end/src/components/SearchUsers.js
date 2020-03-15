@@ -6,6 +6,7 @@ function SearchUsers({ queryUsers }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     queryUsers(searchQuery)
+    setSearchQuery("")
   }
 
   return (

@@ -6,6 +6,7 @@ function MessageForm({ sendMessage }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     sendMessage(message)
+    setMessage("")
   }
 
   return (
