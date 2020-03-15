@@ -11,7 +11,8 @@ import {
   getUsers,
   getConversation,
   createConversation,
-  deleteMessage
+  deleteMessage,
+  updateMessage
 } from "../utils/API"
 
 /* The main page consists of two section:
@@ -124,11 +125,41 @@ class Chat extends Component {
     this.setState({ showModal: false })
   }
 
-  setUpdatedMessage = (message) => {
+  setUpdatedMessage = (message, convID) => {
     this.setState({
       showModal: true,
-      updatedMessage: message
+      updatedMessage: {
+        message,
+        convID
+      }
     })
+  }
+
+  handleUpdateMessage = (text) => {
+    const { updatedMessage, activeUserID } = this.state
+    updateMessage(updatedMessage.message._id, text)
+      .then((res) => {
+        if (!res.error) {
+          this.setState((prevState) => {
+            return {
+              conversations: {
+                ...prevState.conversations,
+                [activeUserID]: prevState.conversations[
+                  activeUserID
+                ].map((conv) =>
+                  conv._id === updatedMessage.convID
+                    ? Object.assign(conv, { message: res.message })
+                    : { ...conv }
+                )
+              },
+              showModal: false
+            }
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   render() {
@@ -157,7 +188,8 @@ class Chat extends Component {
           {showModal && (
             <UpdateModal
               closeModal={this.closeModal}
-              updatedMessage={updatedMessage}
+              updatedMessage={updatedMessage.message}
+              handleUpdateMessage={this.handleUpdateMessage}
             />
           )}
           <div className="row px-3">

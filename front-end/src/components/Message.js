@@ -1,6 +1,11 @@
 import React from "react"
 
-function Message({ conversation, loggedUserID, deleteMessage }) {
+function Message({
+  conversation,
+  loggedUserID,
+  deleteMessage,
+  setUpdatedMessage
+}) {
   if (!conversation.message)
     return (
       <li className="message-item px-3 py-1 mb-4">
@@ -22,7 +27,10 @@ function Message({ conversation, loggedUserID, deleteMessage }) {
             }>
             Delete
           </button>
-          <button type="button" className="message-item__button text-info">
+          <button
+            type="button"
+            className="message-item__button text-info"
+            onClick={() => setUpdatedMessage(conversation.message, conversation._id)}>
             Update
           </button>
         </div>
