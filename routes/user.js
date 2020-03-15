@@ -5,11 +5,8 @@ const User = require("../models/user")
 const isAuthenticated = require("../middlewares/isAuthenticated")
 
 router.post("/login", (req, res) => {
-  req.checkBody("username", "Username is required").notEmpty()
-  req.checkBody("password", "Password is required").notEmpty()
-  req
-    .checkBody("username", "Username consists only of alpha numerics")
-    .isAlphanumeric()
+  req.checkBody("username", "Username is required").trim().notEmpty()
+  req.checkBody("password", "Password is required").trim().notEmpty()
 
   const error = req.validationErrors()
   if (error) return res.json({ error })
@@ -39,14 +36,11 @@ router.post("/logout", isAuthenticated, (req, res) => {
 })
 
 router.post("/signup", (req, res) => {
-  req.checkBody("name", "Name is required").notEmpty()
-  req.checkBody("name", "Name consists only of letters").isAlpha()
-  req.checkBody("username", "Username is required").notEmpty()
-  req.checkBody("password", "Password is required").notEmpty()
-  req
-    .checkBody("username", "Username consists only of alpha numerics")
-    .isAlphanumeric()
-  req.checkBody("c-password", "Passwords must match").equals("password")
+  req.checkBody("name", "Name is required").trim().notEmpty()
+  req.checkBody("name", "Name consists only of letters").trim().matches(/^[A-za-z ]{3,}$/)
+  req.checkBody("username", "Username is required").trim().notEmpty()
+  req.checkBody("password", "Password is required").trim().notEmpty()
+  req.checkBody("c-password", "Passwords must match").trim().equals("password")
 
   const error = req.validationErrors()
   if (error) return res.json({ error })

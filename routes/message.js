@@ -4,9 +4,9 @@ const Message = require("../models/message")
 const Conversation = require("../models/conversation")
 
 router.post("/conversation", isAuthenticated, (req, res) => {
-  req.checkBody("sender", "Sender id is required").notEmpty()
-  req.checkBody("receiver", "Receiver id is required").notEmpty()
-  req.checkBody("text", "Conversation text is required").notEmpty()
+  req.checkBody("sender", "Sender id is required").trim().notEmpty()
+  req.checkBody("receiver", "Receiver id is required").trim().notEmpty()
+  req.checkBody("text", "Conversation text is required").trim().notEmpty()
 
   const error = req.validationErrors()
   if (error) return res.json({ error })
@@ -31,8 +31,8 @@ router.post("/conversation", isAuthenticated, (req, res) => {
 })
 
 router.get("/conversation", isAuthenticated, (req, res) => {
-  req.checkQuery("sender", "Sender is required").notEmpty()
-  req.checkQuery("receiver", "Receiver is required").notEmpty()
+  req.checkQuery("sender", "Sender is required").trim().notEmpty()
+  req.checkQuery("receiver", "Receiver is required").trim().notEmpty()
 
   const error = req.validationErrors()
   if (error) return res.json({ error })
@@ -54,8 +54,8 @@ router.get("/conversation", isAuthenticated, (req, res) => {
 })
 
 router.put("/messages/:id", isAuthenticated, (req, res) => {
-  req.checkParams("id", "Message id is required").notEmpty()
-  req.checkBody("text", "Message text is required").notEmpty()
+  req.checkParams("id", "Message id is required").trim().notEmpty()
+  req.checkBody("text", "Message text is required").trim().notEmpty()
 
   const error = req.validationErrors()
   if (error) return res.json({ error })
@@ -72,7 +72,7 @@ router.put("/messages/:id", isAuthenticated, (req, res) => {
 })
 
 router.delete("/messages/:id", isAuthenticated, (req, res) => {
-  req.checkParams("id", "Message id is required").notEmpty()
+  req.checkParams("id", "Message id is required").trim().notEmpty()
 
   const error = req.validationErrors()
   if (error) return res.json({ error })
