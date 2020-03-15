@@ -6,7 +6,7 @@ import Messages from "./Messages"
 import MessageForm from "./MessageForm"
 import { connectStore } from "../store"
 import { withRouter, Redirect } from "react-router-dom"
-import { getUsers, getConversation } from "../utils/API"
+import { getUsers, getConversation, createConversation } from "../utils/API"
 
 /* The main page consists of two section:
 messages to view and CRUD messages
@@ -59,6 +59,32 @@ class Chat extends Component {
     }
   }
 
+  handleSendMessage = (message) => {
+    const { activeUserID } = this.state
+    const { loggedUser } = this.props
+
+    createConversation({
+      sender: loggedUser.id,
+      receiver: activeUserID,
+      text: message
+    })
+      .then((res) => {
+        if (!res.error) {
+          this.setState((prevState) => {
+            return {
+              conversations: {
+                ...prevState.conversations,
+                [activeUserID]: [...prevState.conversations[activeUserID], res]
+              }
+            }
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   render() {
     const { loggedUser } = this.props
     if (!loggedUser) return <Redirect to="/login" />
@@ -79,7 +105,9 @@ class Chat extends Component {
           <div className="row px-3">
             <div className="col-12 col-md-6 col-lg-8 order-1 ordre-md-0 messages-section">
               <Messages messages={conversations[activeUserID]} />
-              <MessageForm />
+              {activeUserID && (
+                <MessageForm sendMessage={this.handleSendMessage} />
+              )}
             </div>
             <div className="col-12 col-md-6 col-lg-4 order-0 order-md-1 users-section">
               <SearchUsers queryUsers={this.handleSearchUsers} />
