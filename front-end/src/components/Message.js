@@ -1,4 +1,5 @@
 import React from "react"
+import { formatDate } from "../utils/helpers"
 
 function Message({
   conversation,
@@ -19,7 +20,9 @@ function Message({
         "message-item px-3 py-1 mb-4 " +
         (loggedUserID === conversation.sender ? "mr-auto" : "ml-auto")
       }>
-      <div className="message-item__date">{conversation.createdAt}</div>
+      <div className="message-item__date">
+        {formatDate(conversation.createdAt)}
+      </div>
       <div className="message-item__text py-2">{conversation.message.text}</div>
       {loggedUserID === conversation.sender && (
         <div className="btn-group btn-group-sm d-flex flex-row-reverse">

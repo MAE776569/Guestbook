@@ -22,6 +22,7 @@ router.post("/conversation", isAuthenticated, (req, res) => {
           id: conv._id,
           sender: conv.sender,
           receiver: conv.receiver,
+          createdAt: conv.createdAt,
           message
         })
       }
