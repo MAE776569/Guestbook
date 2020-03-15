@@ -68,3 +68,12 @@ export function createConversation(data) {
     body: JSON.stringify(data)
   }).then((res) => res.json())
 }
+
+export function deleteMessage(messageID) {
+  return fetch(`${API_URL}/messages/${messageID}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).then((res) => res.json())
+}
