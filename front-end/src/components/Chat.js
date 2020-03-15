@@ -52,14 +52,12 @@ class Chat extends Component {
       getConversation(loggedUser.id, userID)
         .then((res) => {
           if (!res.error) {
-            this.setState((prevState) => {
-              return {
-                conversations: {
-                  ...prevState.conversations,
-                  [userID]: res.conversations
-                }
+            this.setState((prevState) => ({
+              conversations: {
+                ...prevState.conversations,
+                [userID]: res.conversations
               }
-            })
+            }))
           }
         })
         .catch((error) => {
@@ -79,14 +77,12 @@ class Chat extends Component {
     })
       .then((res) => {
         if (!res.error) {
-          this.setState((prevState) => {
-            return {
-              conversations: {
-                ...prevState.conversations,
-                [activeUserID]: [...prevState.conversations[activeUserID], res]
-              }
+          this.setState((prevState) => ({
+            conversations: {
+              ...prevState.conversations,
+              [activeUserID]: [...prevState.conversations[activeUserID], res]
             }
-          })
+          }))
         }
       })
       .catch((error) => {
@@ -100,20 +96,18 @@ class Chat extends Component {
     deleteMessage(messageID)
       .then((res) => {
         if (!res.error) {
-          this.setState((prevState) => {
-            return {
-              conversations: {
-                ...prevState.conversations,
-                [activeUserID]: prevState.conversations[
-                  activeUserID
-                ].map((conv) =>
-                  conv._id === convID
-                    ? Object.assign(conv, { message: null })
-                    : { ...conv }
-                )
-              }
+          this.setState((prevState) => ({
+            conversations: {
+              ...prevState.conversations,
+              [activeUserID]: prevState.conversations[
+                activeUserID
+              ].map((conv) =>
+                conv._id === convID
+                  ? Object.assign(conv, { message: null })
+                  : { ...conv }
+              )
             }
-          })
+          }))
         }
       })
       .catch((error) => {
@@ -140,21 +134,19 @@ class Chat extends Component {
     updateMessage(updatedMessage.message._id, text)
       .then((res) => {
         if (!res.error) {
-          this.setState((prevState) => {
-            return {
-              conversations: {
-                ...prevState.conversations,
-                [activeUserID]: prevState.conversations[
-                  activeUserID
-                ].map((conv) =>
-                  conv._id === updatedMessage.convID
-                    ? Object.assign(conv, { message: res.message })
-                    : { ...conv }
-                )
-              },
-              showModal: false
-            }
-          })
+          this.setState((prevState) => ({
+            conversations: {
+              ...prevState.conversations,
+              [activeUserID]: prevState.conversations[
+                activeUserID
+              ].map((conv) =>
+                conv._id === updatedMessage.convID
+                  ? Object.assign(conv, { message: res.message })
+                  : { ...conv }
+              )
+            },
+            showModal: false
+          }))
         }
       })
       .catch((error) => {
