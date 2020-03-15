@@ -6,7 +6,12 @@ import Messages from "./Messages"
 import MessageForm from "./MessageForm"
 import { connectStore } from "../store"
 import { withRouter, Redirect } from "react-router-dom"
-import { getUsers, getConversation, createConversation } from "../utils/API"
+import {
+  getUsers,
+  getConversation,
+  createConversation,
+  deleteMessage
+} from "../utils/API"
 
 /* The main page consists of two section:
 messages to view and CRUD messages
@@ -85,6 +90,33 @@ class Chat extends Component {
       })
   }
 
+  handleDeleteMessage = (messageID, convID) => {
+    const { activeUserID } = this.state
+
+    deleteMessage(messageID)
+      .then((res) => {
+        if (!res.error) {
+          this.setState((prevState) => {
+            return {
+              conversations: {
+                ...prevState.conversations,
+                [activeUserID]: prevState.conversations[
+                  activeUserID
+                ].map((conv) =>
+                  conv._id === convID
+                    ? Object.assign(conv, { message: null })
+                    : { ...conv }
+                )
+              }
+            }
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   render() {
     const { loggedUser } = this.props
     if (!loggedUser) return <Redirect to="/login" />
@@ -110,6 +142,7 @@ class Chat extends Component {
               <Messages
                 messages={conversations[activeUserID]}
                 loggedUserID={loggedUser.id}
+                deleteMessage={this.handleDeleteMessage}
               />
             </div>
             <div className="col-12 col-md-6 col-lg-4 order-0 order-md-1 users-section">

@@ -1,7 +1,7 @@
 import React from "react"
 import Message from "./Message"
 
-function Messages({ messages, loggedUserID }) {
+function Messages({ messages, loggedUserID, deleteMessage }) {
   if (messages === undefined)
     return (
       <div className="empty-message-list d-flex justify-content-center align-items-center">
@@ -23,6 +23,7 @@ function Messages({ messages, loggedUserID }) {
           key={message.id}
           conversation={message}
           loggedUserID={loggedUserID}
+          deleteMessage={deleteMessage}
         />
       ))}
     </ul>

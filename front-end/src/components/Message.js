@@ -1,6 +1,6 @@
 import React from "react"
 
-function Message({ conversation, loggedUserID }) {
+function Message({ conversation, loggedUserID, deleteMessage }) {
   if (!conversation.message)
     return (
       <li className="message-item px-3 py-1 mb-4">
@@ -14,7 +14,12 @@ function Message({ conversation, loggedUserID }) {
       <div className="message-item__text py-2">{conversation.message.text}</div>
       {loggedUserID === conversation.sender && (
         <div className="btn-group btn-group-sm d-flex flex-row-reverse">
-          <button type="button" className="message-item__button text-danger">
+          <button
+            type="button"
+            className="message-item__button text-danger"
+            onClick={() =>
+              deleteMessage(conversation.message._id, conversation._id)
+            }>
             Delete
           </button>
           <button type="button" className="message-item__button text-info">
