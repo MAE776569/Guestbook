@@ -18,7 +18,7 @@ function MessageForm({ sendMessage }) {
             spellCheck={true}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-          />
+          ></textarea>
           <div className="input-group-append">
             <button type="submit" className="btn btn-outline-primary">
               Send

@@ -4,6 +4,7 @@ import SearchUsers from "./SearchUsers"
 import UsersList from "./UsersList"
 import Messages from "./Messages"
 import MessageForm from "./MessageForm"
+import UpdateModal from "./UpdateModal"
 import { connectStore } from "../store"
 import { withRouter, Redirect } from "react-router-dom"
 import {
@@ -21,7 +22,9 @@ class Chat extends Component {
     users: [],
     searchedQuery: "",
     activeUserID: "",
-    conversations: {}
+    conversations: {},
+    showModal: false,
+    updatedMessage: null
   }
 
   componentDidMount() {
@@ -117,12 +120,29 @@ class Chat extends Component {
       })
   }
 
+  closeModal = () => {
+    this.setState({ showModal: false })
+  }
+
+  setUpdatedMessage = (message) => {
+    this.setState({
+      showModal: true,
+      updatedMessage: message
+    })
+  }
+
   render() {
     const { loggedUser } = this.props
     if (!loggedUser) return <Redirect to="/login" />
 
     let { users } = this.state
-    const { searchedQuery, activeUserID, conversations } = this.state
+    const {
+      searchedQuery,
+      activeUserID,
+      conversations,
+      showModal,
+      updatedMessage
+    } = this.state
     users = users.filter(
       (user) =>
         user.id !== loggedUser.id &&
@@ -134,6 +154,12 @@ class Chat extends Component {
       <>
         <NavBar />
         <div className="container pt-1 chat">
+          {showModal && (
+            <UpdateModal
+              closeModal={this.closeModal}
+              updatedMessage={updatedMessage}
+            />
+          )}
           <div className="row px-3">
             <div className="col-12 col-md-6 col-lg-8 order-1 ordre-md-0 messages-section">
               {activeUserID && (
@@ -143,6 +169,7 @@ class Chat extends Component {
                 messages={conversations[activeUserID]}
                 loggedUserID={loggedUser.id}
                 deleteMessage={this.handleDeleteMessage}
+                setUpdatedMessage={this.setUpdatedMessage}
               />
             </div>
             <div className="col-12 col-md-6 col-lg-4 order-0 order-md-1 users-section">
