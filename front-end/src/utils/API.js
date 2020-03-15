@@ -77,3 +77,13 @@ export function deleteMessage(messageID) {
     }
   }).then((res) => res.json())
 }
+
+export function updateMessage(messageID, text) {
+  return fetch(`${API_URL}/messages/${messageID}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ text })
+  }).then((res) => res.json())
+}
