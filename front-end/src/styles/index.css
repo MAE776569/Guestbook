@@ -44,9 +44,15 @@
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
 }
-.search-users__input,
-.message-form__input {
+.search-users__input {
   height: 50px;
+}
+.message-form__input {
+  flex: 1;
+  resize: none;
+  overflow: hidden;
+  border-color: #cecece;
+  padding: 0;
 }
 .list-group .list-group-item {
   border-top: none;
