@@ -18,13 +18,7 @@ router.post("/conversation", isAuthenticated, (req, res) => {
       { sender, receiver, message: message._id },
       (error, conv) => {
         if (error) return res.json({ error: "Error creating conversation" })
-        return res.json({
-          id: conv._id,
-          sender: conv.sender,
-          receiver: conv.receiver,
-          createdAt: conv.createdAt,
-          message
-        })
+        return res.json({ conversation: Object.assign(conv, { message }) })
       }
     )
   })

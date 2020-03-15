@@ -80,7 +80,10 @@ class Chat extends Component {
           this.setState((prevState) => ({
             conversations: {
               ...prevState.conversations,
-              [activeUserID]: [...prevState.conversations[activeUserID], res]
+              [activeUserID]: [
+                ...prevState.conversations[activeUserID],
+                res.conversation
+              ]
             }
           }))
         }
@@ -104,7 +107,7 @@ class Chat extends Component {
               ].map((conv) =>
                 conv._id === convID
                   ? Object.assign(conv, { message: null })
-                  : { ...conv }
+                  : Object.assign(conv, {})
               )
             }
           }))
