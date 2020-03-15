@@ -91,6 +91,9 @@
 .empty-message-list {
   height: calc(100% - 50px);
 }
+.unselected-message-list {
+  height: 100%;
+}
 .message-item {
   width: 35%;
   border-radius: 5px;

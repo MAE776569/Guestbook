@@ -1,11 +1,10 @@
 import React from "react"
+import Message from "./Message"
 
 function Messages({ messages }) {
-  console.log(messages)
-
   if (messages === undefined)
     return (
-      <div className="empty-message-list d-flex justify-content-center align-items-center">
+      <div className="unselected-message-list d-flex justify-content-center align-items-center">
         Select User to start conversation
       </div>
     )
@@ -18,8 +17,8 @@ function Messages({ messages }) {
     )
 
   return (
-    <ul className="list-unstyled">
-      <li>To show messages</li>
+    <ul className="list-unstyled px-3 pt-2">
+      <Message />
     </ul>
   )
 }
