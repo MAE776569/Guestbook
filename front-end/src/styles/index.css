@@ -81,8 +81,30 @@
   margin: 0;
   font-weight: 300;
 }
-.empty-user-list, .empty-message-list {
+.empty-user-list,
+.empty-message-list {
   height: calc(100% - 50px);
+}
+.message-item {
+  width: 35%;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 2px #eee;
+}
+.message-item__date {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: #5d5d5d;
+}
+.message-item__text {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.message-item__button {
+  font-size: 0.8rem;
+  padding: 0.125rem 0.25rem;
+  background-color: inherit;
+  display: inline-block;
+  border: 0;
 }
 @media screen and (min-width: 768px) {
   .messages-section,
