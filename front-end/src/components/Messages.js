@@ -1,5 +1,6 @@
 import React from "react"
 import Message from "./Message"
+import LoadingIndicator from "./LoadingIndicator"
 
 function Messages({
   messages,
@@ -10,7 +11,7 @@ function Messages({
   if (messages === undefined)
     return (
       <div className="empty-message-list d-flex justify-content-center align-items-center">
-        Select User to start conversation
+        <LoadingIndicator />
       </div>
     )
   else if (messages.length === 0)

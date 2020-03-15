@@ -197,12 +197,18 @@ class Chat extends Component {
               {activeUserID && (
                 <MessageForm sendMessage={this.handleSendMessage} />
               )}
-              <Messages
-                messages={conversations[activeUserID]}
-                loggedUserID={loggedUser.id}
-                deleteMessage={this.handleDeleteMessage}
-                setUpdatedMessage={this.setUpdatedMessage}
-              />
+              {activeUserID ? (
+                <Messages
+                  messages={conversations[activeUserID]}
+                  loggedUserID={loggedUser.id}
+                  deleteMessage={this.handleDeleteMessage}
+                  setUpdatedMessage={this.setUpdatedMessage}
+                />
+              ) : (
+                <div className="empty-message-list d-flex justify-content-center align-items-center">
+                  Select user to start conversation
+                </div>
+              )}
             </div>
             <div className="col-12 col-md-6 col-lg-4 order-0 order-md-1 users-section">
               <SearchUsers queryUsers={this.handleSearchUsers} />

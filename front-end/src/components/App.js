@@ -7,6 +7,7 @@ import PageNotFound from "./PageNotFound"
 import { getStore } from "../store"
 import { checkAuthedUser } from "../utils/authentication"
 import { getLoggedUser } from "../utils/API"
+import LoadingIndicator from "./LoadingIndicator"
 
 class App extends Component {
   state = {
@@ -38,7 +39,12 @@ class App extends Component {
 
   render() {
     const { loading } = this.state
-    if (loading) return <h1>Loading...</h1>
+    if (loading)
+      return (
+        <div className="loading-container">
+          <LoadingIndicator />
+        </div>
+      )
 
     const storeValue = {
       ...this.state,
