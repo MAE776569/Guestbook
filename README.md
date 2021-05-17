@@ -1,6 +1,6 @@
 # Guestbook
 
-Geustbook is **MERN stack** application that allow users write, and reply to messages.
+Guestbook is a **MERN stack** application that allows users to write, and reply to messages.
 
 ## Features
 
@@ -21,15 +21,15 @@ Navigate to the project root directory and run the commands in the terminal
 
 ## Authentication
 
-**Session** authentication was used to allow the users to login and create accounts.
+**Session** authentication was used to allow the users to log in and create accounts.
 
 ### How authentication works
 
-Each time a user creates an account or log in a new session is created and session id is sent to the client.
+Each time a user creates an account or log in a new session is created and the session id is sent to the client.
 
-With each request the session is validated using the session id.
+With each request, the session is validated using the session id.
 
-If the session is valid the request is handled, and if the session is not valid the user is requested to provide a valid session id or create another session.
+If the session is valid the request is handled, and if the session is not valid the user is requested to provide a valid session-id or create another session.
 
 ## The Models
 
