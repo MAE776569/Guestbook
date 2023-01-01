@@ -11,7 +11,7 @@ Guestbook is a **MERN stack** application that allows users to write, and reply 
 
 ## How to install
 
-Navigate to the project root directory and run the commands in the terminal
+Navigate to the project root directory and run the following commands in the terminal
 
 - `npm run build` *to build the front-end files*
 
